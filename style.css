@@ -1,0 +1,767 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body {
+  width: 100%;
+  height: 100%;
+}
+
+body {
+  overflow: hidden;
+  font-family: Georgia, "Times New Roman", serif;
+  background:
+    radial-gradient(
+      circle at center,
+      #351523 0%,
+      #1d0b14 45%,
+      #0c0408 100%
+    );
+  color: white;
+}
+
+/* ==================================================
+TELA INICIAL
+================================================== */
+
+.tela-inicial {
+  position: relative;
+  z-index: 10;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  transition: opacity 1s ease, transform 1s ease;
+}
+
+.tela-inicial.saindo {
+  opacity: 0;
+  transform: scale(1.04);
+}
+
+.conteudo {
+  position: relative;
+  z-index: 11;
+  text-align: center;
+  max-width: 500px;
+}
+
+.subtitulo {
+  font-size: clamp(22px, 5vw, 32px);
+  font-weight: 300;
+  letter-spacing: 1px;
+  color: #f8d5df;
+  margin-bottom: 40px;
+  animation: aparecer 1.5s ease forwards;
+}
+
+/* ==================================================
+BOTÃO INICIAL
+================================================== */
+
+#botao-surpresa {
+  position: relative;
+  z-index: 12;
+  border: none;
+  outline: none;
+  padding: 16px 30px;
+  border-radius: 50px;
+  background: linear-gradient(135deg, #b51255, #e33b75);
+  color: white;
+  font-size: 17px;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  box-shadow:
+    0 8px 30px rgba(227, 59, 117, 0.35),
+    0 0 40px rgba(227, 59, 117, 0.12);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  animation: aparecer 1.5s ease 0.4s both;
+}
+
+#botao-surpresa:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 35px rgba(227, 59, 117, 0.45);
+}
+
+#botao-surpresa:active {
+  transform: scale(0.95);
+}
+
+#botao-surpresa span {
+  display: inline-block;
+  margin-left: 7px;
+  animation: pulsar 1.8s ease infinite;
+}
+
+/* ==================================================
+ANIMAÇÕES
+================================================== */
+
+@keyframes aparecer {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulsar {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.25);
+  }
+}
+
+/* ==================================================
+TELA DO CORAÇÃO
+================================================== */
+
+#tela-coracao {
+  position: fixed;
+  inset: 0;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 5;
+  opacity: 0;
+  background:
+    radial-gradient(
+      circle at center,
+      #351523 0%,
+      #1d0b14 45%,
+      #0c0408 100%
+    );
+  transition: opacity 1s ease;
+}
+
+/* ==================================================
+CANVAS
+================================================== */
+
+#canvas-coracao {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0;
+  transition: opacity 1.5s ease;
+  filter: drop-shadow(0 0 8px rgba(255, 120, 170, 0.5));
+}
+
+/* ==================================================
+CONTEÚDO DO CORAÇÃO
+================================================== */
+
+.conteudo-coracao {
+  position: relative;
+  z-index: 2;
+  width: min(80%, 500px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+#mensagem-coracao {
+  max-width: 330px;
+  font-size: clamp(20px, 4vw, 28px);
+  line-height: 1.5;
+  color: #f8d5df;
+  text-shadow: 0 0 10px rgba(255, 100, 170, 0.4);
+  opacity: 0;
+  transform: scale(0.9);
+  transition: opacity 1s ease, transform 1s ease;
+  margin-bottom: 35px;
+}
+
+/* ==================================================
+BOTÃO PRÓXIMO
+================================================== */
+
+#botao-proximo {
+  border: none;
+  outline: none;
+  padding: 14px 30px;
+  border-radius: 50px;
+  background: linear-gradient(135deg, #b51255, #e33b75);
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  box-shadow: 0 8px 30px rgba(227, 59, 117, 0.35);
+  opacity: 0;
+  transform: translateY(15px);
+  transition: opacity 1s ease, transform 1s ease;
+}
+
+/* ==================================================
+TELA DA CARTA
+================================================== */
+
+#tela-carta {
+  position: fixed;
+  inset: 0;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 25px;
+  z-index: 20;
+  opacity: 0;
+  background:
+    radial-gradient(
+      circle at center,
+      #351523 0%,
+      #1d0b14 45%,
+      #0c0408 100%
+    );
+  transition: opacity 1s ease;
+}
+
+/* ==================================================
+ÁREA DO ENVELOPE
+================================================== */
+
+#area-envelope {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+/* ==================================================
+ENVELOPE
+================================================== */
+
+#envelope {
+  position: relative;
+  z-index: 10;
+  width: 360px;
+  height: 240px;
+  cursor: pointer;
+  perspective: 1000px;
+  filter: drop-shadow(0 20px 30px rgba(0, 0, 0, 0.4));
+  transition: transform 0.3s ease, opacity 0.8s ease;
+}
+
+#envelope:hover {
+  transform: translateY(-5px);
+}
+
+/* ==================================================
+FUNDO DO ENVELOPE
+================================================== */
+
+.envelope-fundo {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(145deg, #f4d6d8, #dba7ae);
+  border-radius: 5px;
+  z-index: 1;
+}
+
+/* ==================================================
+PAPEL DENTRO DO ENVELOPE
+================================================== */
+
+.papel-envelope {
+  position: absolute;
+  width: 300px;
+  height: 210px;
+  left: 30px;
+  bottom: 10px;
+  background: #fffaf5;
+  border-radius: 3px;
+  z-index: 2;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+  transition: transform 1.5s ease;
+}
+
+/* ==================================================
+ABA
+================================================== */
+
+.envelope-aba {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 0;
+  border-left: 180px solid transparent;
+  border-right: 180px solid transparent;
+  border-top: 125px solid #c9828d;
+  transform-origin: top center;
+  z-index: 4;
+  transition: transform 1s ease;
+}
+
+/* ==================================================
+FRENTE
+================================================== */
+
+.envelope-frente {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 125px;
+  background: linear-gradient(145deg, #e7b8bd, #cf929b);
+  clip-path: polygon(0 0, 50% 55%, 100% 0, 100% 100%, 0 100%);
+  border-radius: 0 0 5px 5px;
+  z-index: 5;
+}
+
+/* ==================================================
+TEXTO CLIQUE
+================================================== */
+
+#texto-clique {
+  margin-top: 30px;
+  color: #f8d5df;
+  font-size: 19px;
+  letter-spacing: 0.5px;
+  opacity: 0.9;
+  transition: opacity 0.5s ease;
+  animation: pulsarTexto 2s ease-in-out infinite;
+}
+
+@keyframes pulsarTexto {
+  0%, 100% {
+    opacity: 0.6;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+/* ==================================================
+CARTA
+================================================== */
+
+#papel-carta {
+  position: absolute;
+  width: min(90%, 700px);
+  max-height: 80vh;
+  overflow-y: auto;
+  padding: 50px 45px;
+  background: linear-gradient(145deg, #fffaf5, #f6e8df);
+  color: #351523;
+  border-radius: 8px;
+  box-shadow: 0 25px 70px rgba(0, 0, 0, 0.5);
+  opacity: 0;
+  transform: translateY(80px) scale(0.9);
+  pointer-events: none;
+  z-index: 5;
+  transition: opacity 1s ease, transform 1s ease;
+  scrollbar-width: thin;
+  scrollbar-color: #c9828d transparent;
+}
+
+#papel-carta::-webkit-scrollbar {
+  width: 6px;
+}
+
+#papel-carta::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+#papel-carta::-webkit-scrollbar-thumb {
+  background: #c9828d;
+  border-radius: 10px;
+}
+
+/* ==================================================
+CONTEÚDO DA CARTA
+================================================== */
+
+.conteudo-carta {
+  text-align: center;
+}
+
+.conteudo-carta h1 {
+  margin-bottom: 25px;
+  font-size: clamp(28px, 6vw, 42px);
+  font-weight: normal;
+  color: #8f304b;
+  letter-spacing: 1px;
+}
+
+.conteudo-carta h1::after {
+  content: "♡";
+  display: block;
+  margin-top: 10px;
+  font-size: 20px;
+  color: #c9828d;
+}
+
+/* ==================================================
+NOME
+================================================== */
+
+.nome-destinataria {
+  text-align: center !important;
+  font-size: 20px !important;
+  color: #8f304b;
+  margin-bottom: 30px !important;
+}
+
+/* ==================================================
+TEXTO
+================================================== */
+
+.texto-carta {
+  margin-top: 10px;
+}
+
+.texto-carta p {
+  margin-bottom: 25px;
+  font-size: 18px;
+  line-height: 1.9;
+  text-align: left;
+  color: #4b2933;
+}
+
+/* ==================================================
+FRASE FILOSÓFICA
+================================================== */
+
+.texto-carta blockquote {
+  margin: 30px 15px;
+  padding-left: 20px;
+  border-left: 3px solid #c9828d;
+  color: #8f304b;
+  font-style: italic;
+  font-size: 18px;
+  line-height: 1.7;
+  text-align: left;
+}
+
+/* ==================================================
+ASSINATURA DA CARTA
+================================================== */
+
+.assinatura {
+  margin-top: 35px;
+  font-size: 18px;
+  line-height: 1.6;
+  color: #8f304b;
+}
+
+/* ==================================================
+BOTÃO FINAL DA CARTA
+================================================== */
+
+#botao-final {
+  margin-top: 30px;
+  padding: 14px 25px;
+  border: none;
+  border-radius: 50px;
+  background: linear-gradient(135deg, #b51255, #e33b75);
+  color: white;
+  font-family: inherit;
+  font-size: 16px;
+  cursor: pointer;
+  box-shadow: 0 8px 25px rgba(181, 18, 85, 0.3);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+#botao-final:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 30px rgba(181, 18, 85, 0.45);
+}
+
+/* ==================================================
+FINAL CINEMATOGRÁFICO
+================================================== */
+
+#tela-final {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  overflow: hidden;
+  opacity: 0;
+  background: #050308;
+  transition: opacity 2s ease;
+}
+
+/* ==================================================
+FUNDO CINEMATOGRÁFICO
+================================================== */
+
+.cinema-background {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(
+      circle at center,
+      #24101e 0%,
+      #100812 40%,
+      #050308 80%
+    );
+  animation: cinemaBreath 8s ease-in-out infinite;
+}
+
+@keyframes cinemaBreath {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.08);
+  }
+}
+
+/* ==================================================
+LUZ CENTRAL
+================================================== */
+
+.cinema-glow {
+  position: absolute;
+  width: 500px;
+  height: 500px;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  background:
+    radial-gradient(
+      circle,
+      rgba(255, 188, 102, 0.15),
+      rgba(255, 120, 170, 0.06) 35%,
+      transparent 70%
+    );
+  filter: blur(10px);
+  opacity: 0;
+  animation: glowAppear 4s ease forwards;
+  animation-delay: 1s;
+}
+
+@keyframes glowAppear {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.5);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+/* ==================================================
+PARTÍCULAS
+================================================== */
+
+#particulas-final {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.particula-final {
+  position: absolute;
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: #ffdca8;
+  box-shadow: 0 0 8px #ffdca8;
+  opacity: 0;
+  animation: particulaSubir var(--duracao) ease-out var(--delay) infinite;
+}
+
+@keyframes particulaSubir {
+  0% {
+    opacity: 0;
+    transform: translateY(30px) scale(0.5);
+  }
+  30% {
+    opacity: 0.9;
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-180px) scale(1);
+  }
+}
+
+/* ==================================================
+IMAGEM CENTRAL (Mestre Oogway)
+================================================== */
+
+.galaxia-final {
+  position: absolute;
+  width: clamp(260px, 65vw, 480px);
+  height: clamp(260px, 65vw, 480px);
+  left: 50%;
+  top: 40%;
+  transform: translate(-50%, -50%) scale(0.5);
+  border-radius: 50%;
+  overflow: hidden;
+  opacity: 0;
+  z-index: 5;
+  box-shadow:
+    0 0 40px rgba(140, 100, 255, 0.4),
+    0 0 80px rgba(80, 60, 160, 0.3);
+  animation: imagemAparecer 2.5s cubic-bezier(.17,.67,.3,1.1) 0.6s forwards;
+}
+
+.galaxia-final img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+  display: block;
+}
+
+@keyframes imagemAparecer {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.5);
+  }
+  100% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+/* ==================================================
+ÚNICA MENSAGEM
+================================================== */
+
+.mensagem-1 {
+  position: absolute;
+  left: 50%;
+  top: 72%;
+  transform: translateX(-50%);
+  width: 90%;
+  max-width: 600px;
+  text-align: center;
+  color: #ffd18c;
+  font-size: clamp(28px, 6vw, 42px);
+  line-height: 1.4;
+  opacity: 0;
+  text-shadow: 0 0 20px rgba(255, 180, 100, 0.4);
+  z-index: 10;
+  animation: mensagemUnica 3s ease 3.5s forwards;
+}
+
+.mensagem-1 span {
+  display: inline-block;
+  margin-left: 8px;
+  animation: pulsar 1.8s ease infinite;
+}
+
+@keyframes mensagemUnica {
+  0% {
+    opacity: 0;
+    transform: translateX(-50%) translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+}
+
+/* ==================================================
+BOTÃO RECOMEÇAR
+================================================== */
+
+#restart {
+  position: absolute;
+  bottom: 40px;
+  padding: 10px 22px;
+  border: 1px solid rgba(255, 210, 150, 0.35);
+  border-radius: 30px;
+  background: rgba(255, 255, 255, 0.04);
+  color: #f5dce4;
+  font-family: inherit;
+  font-size: 14px;
+  cursor: pointer;
+  opacity: 0;
+  animation: aparecerRestart 2s ease 6s forwards;
+  transition: background 0.3s ease, transform 0.3s ease;
+  z-index: 10;
+}
+
+#restart:hover {
+  background: rgba(255, 255, 255, 0.1);
+  transform: translateY(-2px);
+}
+
+@keyframes aparecerRestart {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* ==================================================
+CELULAR
+================================================== */
+
+@media (max-width: 600px) {
+  #envelope {
+    width: 300px;
+    height: 200px;
+  }
+
+  .envelope-aba {
+    border-left-width: 150px;
+    border-right-width: 150px;
+    border-top-width: 105px;
+  }
+
+  .envelope-frente {
+    height: 105px;
+  }
+
+  .papel-envelope {
+    width: 250px;
+    height: 175px;
+    left: 25px;
+  }
+
+  #papel-carta {
+    width: 92%;
+    max-height: 82vh;
+    padding: 35px 25px;
+  }
+
+  .texto-carta p {
+    font-size: 17px;
+    line-height: 1.8;
+  }
+
+  .cinema-glow {
+    width: 350px;
+    height: 350px;
+  }
+
+  .galaxia-final {
+    width: 220px;
+    height: 220px;
+    top: 38%;
+  }
+
+  .mensagem-3 {
+    top: 68%;
+    font-size: 26px;
+  }
+}
